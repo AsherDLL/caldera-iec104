@@ -1,0 +1,5 @@
+# Payload binaries are distributed via the companion caldera-iec104-payloads
+# repository (GPL-3.0). Download them from its Releases and drop them here.
+# They are intentionally not committed to this Apache-2.0 plugin repository.
+*
+!.gitignore
