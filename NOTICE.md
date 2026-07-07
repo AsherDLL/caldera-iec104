@@ -1,18 +1,26 @@
 # NOTICE
 
-caldera-iec104 — an IEC 60870-5-104 plugin for MITRE Caldera.
+caldera-iec104, an IEC 60870-5-104 plugin for MITRE Caldera, with its `iec104_cli`
+payload.
 
 Copyright (c) 2026 Asher Davila.
 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-these files except in compliance with the License. You may obtain a copy of the
-License in the `LICENSE` file or at http://www.apache.org/licenses/LICENSE-2.0.
+This program is free software: you can redistribute it and/or modify it under the
+terms of the **GNU General Public License v3.0 or later** (see `LICENSE`).
 
-## Payloads
+## Third-party components
 
-The compiled payload binaries used by this plugin's abilities (`iec104_cli`) are
-**not** part of this repository. They are built and distributed separately in the
-GPL-3.0-licensed companion repository
-[`caldera-iec104-payloads`](https://github.com/AsherDavila/caldera-iec104-payloads),
-because they bundle the GPL-3.0 `c104` library. This split keeps the plugin itself
-Apache-2.0, mirroring the MITRE `iec61850` / `iec61850-payloads` model.
+The `iec104_cli` payload links against and bundles:
+
+- **c104**, a Python IEC 60870-5-104 implementation, licensed under the **GNU
+  General Public License v3.0**.
+  https://github.com/Fraunhofer-FIT-DIEN/iec104-python
+
+Because the payload binaries bundle the GPL-3.0 `c104` library, this repository
+(plugin **and** payload together) is licensed **GPL-3.0** as a whole. MITRE's own
+`iec61850` plugin instead keeps the plugin Apache-2.0 and isolates the GPL payload in
+a separate `iec61850-payloads` repo; this project keeps everything in one repository
+under GPL-3.0.
+
+- **PyInstaller** is used only as a build tool; its bootloader exception permits
+  distributing the resulting binaries under this project's license.

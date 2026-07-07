@@ -4,10 +4,14 @@ The IEC 104 plugin provides [Caldera](https://github.com/mitre/caldera) with
 adversary-emulation abilities for the **IEC 60870-5-104** telecontrol protocol
 (TCP/2404), used widely in electric power and other utility SCADA systems.
 
-Abilities are mapped to [ATT&CK for ICS](https://attack.mitre.org/matrices/ics/)
-and driven by a generic command-line master (`iec104_cli`), so they work against
-any conforming IEC-104 outstation — the target address, common address, and
-information object addresses are supplied as facts.
+Abilities are mapped to [ATT&CK for ICS](https://attack.mitre.org/matrices/ics/) and
+driven by a generic command-line master (`iec104_cli`), so they work against any
+conforming IEC-104 outstation, the target address, common address, and information
+object addresses are supplied as facts.
+
+This is a single self-contained repository: the plugin and its payload source live
+together. Because the payload wraps the GPL-3.0 `c104` library, the repository is
+licensed **GPL-3.0**.
 
 ## Abilities
 
@@ -25,31 +29,23 @@ reference.
 
 ## Installation
 
-1. Clone this repository into Caldera's `plugins/` directory as `iec104`:
+1. Clone into Caldera's `plugins/` directory as `iec104`:
 
    ```
-   git clone https://github.com/AsherDavila/caldera-iec104 plugins/iec104
+   git clone https://github.com/AsherDLL/caldera-iec104 plugins/iec104
    ```
 
-2. Download the payload binaries for the platforms you will target from the
-   companion repository's
-   [Releases](https://github.com/AsherDavila/caldera-iec104-payloads/releases)
-   and place them in `plugins/iec104/payloads/`:
+   The payload binaries ship in `payloads/` (`iec104_cli`, and `iec104_cli.exe` /
+   `iec104_cli_darwin` from the release CI).
 
-   | File | Platform |
-   |---|---|
-   | `iec104_cli` | Linux (glibc >= 2.31) |
-   | `iec104_cli.exe` | Windows |
-   | `iec104_cli_darwin` | macOS |
-
-3. Enable the plugin in `conf/local.yml` (or `default.yml`):
+2. Enable the plugin in `conf/local.yml`:
 
    ```yaml
    plugins:
      - iec104
    ```
 
-4. Restart Caldera. The abilities appear under the tactics above, and an
+3. Restart Caldera. The abilities appear under the tactics above, and an
    **IEC 104 Sample Facts** source is available to seed a fact source.
 
 ## Usage
@@ -62,19 +58,30 @@ Create a fact source (or edit **IEC 104 Sample Facts**) with your target:
 | `iec104.server.port` | `2404` | IEC-104 TCP port |
 | `iec104.common_address` | `1` | ASDU common address |
 | `iec104.command.ioa` | `100` | IOA for single/double commands |
-| `iec104.command.value` | `"ON"` | `ON`/`OFF` (quote it — YAML boolean) |
+| `iec104.command.value` | `"ON"` | `ON`/`OFF` (quote it, YAML boolean) |
 | `iec104.setpoint.ioa` | `100` | IOA for set-point commands |
 | `iec104.setpoint.value` | `12.5` | set-point value |
 
 Then build an adversary from the abilities above and run an operation against an
 agent that can reach the outstation.
 
-## Payloads
+## Payload
 
-Payload source and binaries live in
-[`caldera-iec104-payloads`](https://github.com/AsherDavila/caldera-iec104-payloads)
-(GPL-3.0). This plugin is Apache-2.0.
+The `iec104_cli` payload source and build tooling are in [`src/`](src/README.md); the
+Linux binary is committed in `payloads/`, and Windows/macOS binaries are produced by
+the release CI (`.github/workflows/ci.yaml`). Build locally:
+
+```
+cd src && make build/linux && make update      # -> payloads/iec104_cli
+```
+
+## Tests
+
+```
+pip install -r src/requirements.txt pytest
+PYTHONPATH=src python -m pytest tests -q
+```
 
 ## License
 
-Apache-2.0. See [`LICENSE`](LICENSE) and [`NOTICE.md`](NOTICE.md).
+GPL-3.0-or-later. See [`LICENSE`](LICENSE) and [`NOTICE.md`](NOTICE.md).

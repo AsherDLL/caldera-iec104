@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: GPL-3.0-or-later
 from app.utility.base_world import BaseWorld
 from plugins.iec104.app.iec104_svc import IEC104Service
 
