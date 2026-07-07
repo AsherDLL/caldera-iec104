@@ -9,7 +9,7 @@ Initial release of the IEC 104 plugin.
   command (C_SE), and clock synchronization (C_CS).
 - `IEC 104 Sample Facts` fact source and a payload registry for the `iec104_cli`
   Linux/Windows/macOS binaries.
+- A GUI panel (splash service + Magma Vue view) listing the plugin's abilities.
+- An output parser that turns interrogation results into `iec104.point.*` facts,
+  wired into the interrogation abilities.
 - Fieldmanual documentation in `docs/iec104.md`.
-
-Planned: a Magma GUI panel and an output parser that turns interrogation results
-into `iec104.point.*` facts.
