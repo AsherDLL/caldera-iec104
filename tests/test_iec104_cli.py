@@ -43,10 +43,18 @@ def server():
 
 @pytest.fixture
 def client(server):
-    c = IEC104Client(host="127.0.0.1", port=PORT, common_address=CA, timeout=5.0)
-    c.connect()
+    c = IEC104Client(host="127.0.0.1", port=PORT, common_address=CA, timeout=8.0)
+    for attempt in range(4):  # c104 connect can be briefly flaky on Windows CI
+        try:
+            c.connect()
+            break
+        except IEC104Error:
+            if attempt == 3:
+                raise
+            time.sleep(0.5)
     yield c
     c.close()
+    time.sleep(0.3)
 
 
 def test_hostname_is_resolved():

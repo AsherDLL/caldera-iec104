@@ -18,7 +18,7 @@ jobs:
             artifact: iec104_cli
           - os: windows-2022
             artifact: iec104_cli.exe
-          - os: macos-14
+          - os: macos-13
             artifact: iec104_cli_darwin
     runs-on: ${{ matrix.os }}
     steps:
@@ -44,11 +44,11 @@ jobs:
 
       - name: Normalize artifact name
         shell: bash
+        working-directory: src/dist
         run: |
-          cd src/dist
-          if [ -f iec104_cli.exe ]; then mv iec104_cli.exe "${{ matrix.artifact }}"; fi
-          if [ -f iec104_cli ] && [ "${{ matrix.artifact }}" != "iec104_cli" ]; then mv iec104_cli "${{ matrix.artifact }}"; fi
-
+          target="${{ matrix.artifact }}"
+          built=$(ls | head -1)
+          if [ "$built" != "$target" ]; then mv "$built" "$target"; fi
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact }}
