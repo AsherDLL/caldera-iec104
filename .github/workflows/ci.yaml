@@ -13,13 +13,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # macOS is intentionally omitted: the c104 library has no maintained macOS
+        # build (no arm64 wheel, and it does not compile on the macos runners).
+        # OT agents run Windows and Linux.
         include:
           - os: ubuntu-22.04
             artifact: iec104_cli
           - os: windows-2022
             artifact: iec104_cli.exe
-          - os: macos-13
-            artifact: iec104_cli_darwin
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4

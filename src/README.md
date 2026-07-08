@@ -57,6 +57,6 @@ make build/windows    # -> dist/iec104_cli.exe
 ## Compatibility
 
 The Linux binary is built against **glibc 2.31** (Ubuntu 22.04 / Debian bullseye),
-so it runs on Linux hosts with glibc >= 2.31. Windows and macOS binaries are
+so it runs on Linux hosts with glibc >= 2.31. Windows binaries are
 produced by the release CI. The wrapped `c104` library is copyleft-licensed, see
 `NOTICE.md` at the repository root.

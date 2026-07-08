@@ -68,7 +68,7 @@ agent that can reach the outstation.
 ## Payload
 
 The `iec104_cli` payload source and build tooling are in [`src/`](src/README.md); the
-Linux binary is committed in `payloads/`, and Windows/macOS binaries are produced by
+Linux binary is committed in `payloads/`, and Windows binaries are produced by
 the release CI (`.github/workflows/ci.yaml`). Build locally:
 
 ```
