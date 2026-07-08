@@ -41,10 +41,13 @@ def server():
     srv.stop()
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def client(server):
+    # One connection for the whole module. c104 on the Windows runner stops
+    # accepting new connections after several connect/disconnect cycles, so a
+    # per-test client would fail on whichever test happened to run late.
     c = IEC104Client(host="127.0.0.1", port=PORT, common_address=CA, timeout=8.0)
-    for attempt in range(4):  # c104 connect can be briefly flaky on Windows CI
+    for attempt in range(4):
         try:
             c.connect()
             break
@@ -54,7 +57,6 @@ def client(server):
             time.sleep(0.5)
     yield c
     c.close()
-    time.sleep(0.3)
 
 
 def test_hostname_is_resolved():
