@@ -3,7 +3,7 @@
 caldera-iec104, an IEC 60870-5-104 plugin for MITRE Caldera, with its `iec104_cli`
 payload.
 
-Copyright (c) 2026 Asher Davila.
+Copyright (c) 2026 Asher Davila and Malav Vyas.
 
 This program is free software: you can redistribute it and/or modify it under the
 terms of the **GNU General Public License v3.0 or later** (see `LICENSE`).

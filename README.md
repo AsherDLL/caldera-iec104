@@ -85,3 +85,8 @@ PYTHONPATH=src python -m pytest tests -q
 ## License
 
 GPL-3.0-or-later. See [`LICENSE`](LICENSE) and [`NOTICE.md`](NOTICE.md).
+
+## Authors
+
+- Asher Davila ([AsherDLL](https://github.com/AsherDLL))
+- Malav Vyas ([MalavVyas](https://github.com/MalavVyas))
